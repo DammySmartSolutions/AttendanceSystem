@@ -1,0 +1,674 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AttendanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="AuditID" />
+          </Key>
+          <Property Name="AuditID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuditDateTime" Type="datetime" />
+          <Property Name="TableName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Action" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="UserID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MachineName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IDName" Type="varchar" MaxLength="100" />
+          <Property Name="OldData" Type="xml" />
+          <Property Name="NewData" Type="xml" />
+        </EntityType>
+        <EntityType Name="tblAuditTray">
+          <Key>
+            <PropertyRef Name="AuditID" />
+            <PropertyRef Name="StaffNumber" />
+          </Key>
+          <Property Name="AuditID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ActionPerformed" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DatePerformed" Type="datetime" Nullable="false" />
+          <Property Name="Desccription" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCaptureAttendance">
+          <Key>
+            <PropertyRef Name="attendanceid" />
+          </Key>
+          <Property Name="attendanceid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="semid" Type="int" Nullable="false" />
+          <Property Name="semester" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sessid" Type="int" Nullable="false" />
+          <Property Name="session" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Attend" Type="bit" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="StaffID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CourseCode" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblConfig">
+          <Key>
+            <PropertyRef Name="ConfigID" />
+          </Key>
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailHost" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Port" Type="int" Nullable="false" />
+          <Property Name="EnableSSL" Type="bit" Nullable="false" />
+          <Property Name="BodyHtml" Type="bit" Nullable="false" />
+          <Property Name="ConfigID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCourseAllocation">
+          <Key>
+            <PropertyRef Name="Allocid" />
+          </Key>
+          <Property Name="Allocid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="courseid" Type="int" Nullable="false" />
+          <Property Name="venueid" Type="int" Nullable="false" />
+          <Property Name="staffid" Type="int" Nullable="false" />
+          <Property Name="sessid" Type="int" Nullable="false" />
+          <Property Name="semid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCourseRegistration">
+          <Key>
+            <PropertyRef Name="Allocid" />
+          </Key>
+          <Property Name="Allocid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Semid" Type="int" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sessionid" Type="int" Nullable="false" />
+          <Property Name="semester" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Session" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dept" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Deptid" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Venueid" Type="int" Nullable="false" />
+          <Property Name="StudentName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Venue" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblNewCourseAllocation">
+          <Key>
+            <PropertyRef Name="Allocid" />
+          </Key>
+          <Property Name="Allocid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Semid" Type="int" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sessionid" Type="int" Nullable="false" />
+          <Property Name="semester" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Session" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dept" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Deptid" Type="int" Nullable="false" />
+          <Property Name="StaffId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Venueid" Type="int" Nullable="false" />
+          <Property Name="StaffName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Venue" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblsetupCourse">
+          <Key>
+            <PropertyRef Name="courseid" />
+          </Key>
+          <Property Name="courseid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deptid" Type="int" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="semid" Type="int" Nullable="false" />
+          <Property Name="venid" Type="int" Nullable="false" />
+          <Property Name="Semester" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupDept">
+          <Key>
+            <PropertyRef Name="deptid" />
+          </Key>
+          <Property Name="deptid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="facid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupFaculty">
+          <Key>
+            <PropertyRef Name="facid" />
+          </Key>
+          <Property Name="facid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Instid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupInstitution">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tel" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="postalcode" Type="varchar" MaxLength="50" />
+          <Property Name="logo" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tblsetupRole">
+          <Key>
+            <PropertyRef Name="roleid" />
+          </Key>
+          <Property Name="roleid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupSemester">
+          <Key>
+            <PropertyRef Name="semid" />
+          </Key>
+          <Property Name="semid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="semester" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupSession">
+          <Key>
+            <PropertyRef Name="sessid" />
+          </Key>
+          <Property Name="sessid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="session" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupVenue">
+          <Key>
+            <PropertyRef Name="venid" />
+          </Key>
+          <Property Name="venid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deptid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dept" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Deptid" Type="int" Nullable="false" />
+          <Property Name="Statusid" Type="int" Nullable="false" />
+        </EntityType>
+        <Function Name="GenericAudit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TableName" Type="varchar" Mode="In" />
+          <Parameter Name="PKName" Type="varchar" Mode="In" />
+          <Parameter Name="ChangedBy" Type="varchar" Mode="In" />
+          <Parameter Name="OldData" Type="varchar(max)" Mode="In" />
+          <Parameter Name="NewData" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="AttendanceModelStoreContainer">
+          <EntitySet Name="AuditLog" EntityType="Self.AuditLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAuditTray" EntityType="Self.tblAuditTray" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCaptureAttendance" EntityType="Self.tblCaptureAttendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblConfig" EntityType="Self.tblConfig" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCourseAllocation" EntityType="Self.tblCourseAllocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCourseRegistration" EntityType="Self.tblCourseRegistration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewCourseAllocation" EntityType="Self.tblNewCourseAllocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblsetupCourse" EntityType="Self.tblsetupCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSetupDept" EntityType="Self.tblSetupDept" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSetupFaculty" EntityType="Self.tblSetupFaculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSetupInstitution" EntityType="Self.tblSetupInstitution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblsetupRole" EntityType="Self.tblsetupRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSetupSemester" EntityType="Self.tblSetupSemester" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSetupSession" EntityType="Self.tblSetupSession" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSetupVenue" EntityType="Self.tblSetupVenue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStatus" EntityType="Self.tblStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AttendanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="AuditID" />
+          </Key>
+          <Property Name="AuditID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuditDateTime" Type="DateTime" Precision="3" />
+          <Property Name="TableName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Action" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MachineName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OldData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblAuditTray">
+          <Key>
+            <PropertyRef Name="AuditID" />
+            <PropertyRef Name="StaffNumber" />
+          </Key>
+          <Property Name="AuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StaffNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ActionPerformed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DatePerformed" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Desccription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblConfig">
+          <Key>
+            <PropertyRef Name="ConfigID" />
+          </Key>
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailHost" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Port" Type="Int32" Nullable="false" />
+          <Property Name="EnableSSL" Type="Boolean" Nullable="false" />
+          <Property Name="BodyHtml" Type="Boolean" Nullable="false" />
+          <Property Name="ConfigID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tblCourseAllocation">
+          <Key>
+            <PropertyRef Name="Allocid" />
+          </Key>
+          <Property Name="Allocid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="courseid" Type="Int32" Nullable="false" />
+          <Property Name="venueid" Type="Int32" Nullable="false" />
+          <Property Name="staffid" Type="Int32" Nullable="false" />
+          <Property Name="sessid" Type="Int32" Nullable="false" />
+          <Property Name="semid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupDept">
+          <Key>
+            <PropertyRef Name="deptid" />
+          </Key>
+          <Property Name="deptid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="facid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupFaculty">
+          <Key>
+            <PropertyRef Name="facid" />
+          </Key>
+          <Property Name="facid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Instid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupInstitution">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="postalcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="logo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblsetupRole">
+          <Key>
+            <PropertyRef Name="roleid" />
+          </Key>
+          <Property Name="roleid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupSemester">
+          <Key>
+            <PropertyRef Name="semid" />
+          </Key>
+          <Property Name="semid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="semester" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupSession">
+          <Key>
+            <PropertyRef Name="sessid" />
+          </Key>
+          <Property Name="sessid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="session" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSetupVenue">
+          <Key>
+            <PropertyRef Name="venid" />
+          </Key>
+          <Property Name="venid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deptid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="AttendanceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuditLog" EntityType="Self.AuditLog" />
+          <EntitySet Name="tblAuditTray" EntityType="Self.tblAuditTray" />
+          <EntitySet Name="tblConfig" EntityType="Self.tblConfig" />
+          <EntitySet Name="tblCourseAllocation" EntityType="Self.tblCourseAllocation" />
+          <EntitySet Name="tblSetupDept" EntityType="Self.tblSetupDept" />
+          <EntitySet Name="tblSetupFaculty" EntityType="Self.tblSetupFaculty" />
+          <EntitySet Name="tblSetupInstitution" EntityType="Self.tblSetupInstitution" />
+          <EntitySet Name="tblsetupRole" EntityType="Self.tblsetupRole" />
+          <EntitySet Name="tblSetupSemester" EntityType="Self.tblSetupSemester" />
+          <EntitySet Name="tblSetupSession" EntityType="Self.tblSetupSession" />
+          <EntitySet Name="tblSetupVenue" EntityType="Self.tblSetupVenue" />
+          <FunctionImport Name="GenericAudit">
+            <Parameter Name="TableName" Mode="In" Type="String" />
+            <Parameter Name="PKName" Mode="In" Type="String" />
+            <Parameter Name="ChangedBy" Mode="In" Type="String" />
+            <Parameter Name="OldData" Mode="In" Type="String" />
+            <Parameter Name="NewData" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tblsetupCourse" EntityType="AttendanceModel.tblsetupCourse" />
+          <EntitySet Name="tblStatus" EntityType="AttendanceModel.tblStatus" />
+          <EntitySet Name="tblUser" EntityType="AttendanceModel.tblUser" />
+          <EntitySet Name="tblNewCourseAllocation" EntityType="AttendanceModel.tblNewCourseAllocation" />
+          <EntitySet Name="tblCourseRegistration" EntityType="AttendanceModel.tblCourseRegistration" />
+          <EntitySet Name="tblCaptureAttendance" EntityType="AttendanceModel.tblCaptureAttendance" />
+        </EntityContainer>
+        <EntityType Name="tblsetupCourse">
+          <Key>
+            <PropertyRef Name="courseid" />
+          </Key>
+          <Property Name="courseid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deptid" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="semid" Type="Int32" Nullable="false" />
+          <Property Name="venid" Type="Int32" Nullable="false" />
+          <Property Name="Semester" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Dept" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Deptid" Type="Int32" Nullable="false" />
+          <Property Name="Statusid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblNewCourseAllocation">
+          <Key>
+            <PropertyRef Name="Allocid" />
+          </Key>
+          <Property Name="Allocid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Semid" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sessionid" Type="Int32" Nullable="false" />
+          <Property Name="semester" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Session" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Dept" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Deptid" Type="Int32" Nullable="false" />
+          <Property Name="StaffId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Venueid" Type="Int32" Nullable="false" />
+          <Property Name="StaffName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Venue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblCourseRegistration">
+          <Key>
+            <PropertyRef Name="Allocid" />
+          </Key>
+          <Property Name="Allocid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Semid" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sessionid" Type="Int32" Nullable="false" />
+          <Property Name="semester" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Session" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Dept" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Deptid" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Venueid" Type="Int32" Nullable="false" />
+          <Property Name="StudentName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Venue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblCaptureAttendance">
+          <Key>
+            <PropertyRef Name="attendanceid" />
+          </Key>
+          <Property Name="attendanceid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="semid" Type="Int32" Nullable="false" />
+          <Property Name="semester" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sessid" Type="Int32" Nullable="false" />
+          <Property Name="session" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StudentID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StudentName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Attend" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StaffID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CourseCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AttendanceModelStoreContainer" CdmEntityContainer="AttendanceEntities">
+          <EntitySetMapping Name="AuditLog">
+            <EntityTypeMapping TypeName="AttendanceModel.AuditLog">
+              <MappingFragment StoreEntitySet="AuditLog">
+                <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+                <ScalarProperty Name="AuditDateTime" ColumnName="AuditDateTime" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="IDName" ColumnName="IDName" />
+                <ScalarProperty Name="OldData" ColumnName="OldData" />
+                <ScalarProperty Name="NewData" ColumnName="NewData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAuditTray">
+            <EntityTypeMapping TypeName="AttendanceModel.tblAuditTray">
+              <MappingFragment StoreEntitySet="tblAuditTray">
+                <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+                <ScalarProperty Name="StaffNumber" ColumnName="StaffNumber" />
+                <ScalarProperty Name="ActionPerformed" ColumnName="ActionPerformed" />
+                <ScalarProperty Name="DatePerformed" ColumnName="DatePerformed" />
+                <ScalarProperty Name="Desccription" ColumnName="Desccription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblConfig">
+            <EntityTypeMapping TypeName="AttendanceModel.tblConfig">
+              <MappingFragment StoreEntitySet="tblConfig">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailHost" ColumnName="EmailHost" />
+                <ScalarProperty Name="Port" ColumnName="Port" />
+                <ScalarProperty Name="EnableSSL" ColumnName="EnableSSL" />
+                <ScalarProperty Name="BodyHtml" ColumnName="BodyHtml" />
+                <ScalarProperty Name="ConfigID" ColumnName="ConfigID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCourseAllocation">
+            <EntityTypeMapping TypeName="AttendanceModel.tblCourseAllocation">
+              <MappingFragment StoreEntitySet="tblCourseAllocation">
+                <ScalarProperty Name="Allocid" ColumnName="Allocid" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="venueid" ColumnName="venueid" />
+                <ScalarProperty Name="staffid" ColumnName="staffid" />
+                <ScalarProperty Name="sessid" ColumnName="sessid" />
+                <ScalarProperty Name="semid" ColumnName="semid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSetupDept">
+            <EntityTypeMapping TypeName="AttendanceModel.tblSetupDept">
+              <MappingFragment StoreEntitySet="tblSetupDept">
+                <ScalarProperty Name="deptid" ColumnName="deptid" />
+                <ScalarProperty Name="facid" ColumnName="facid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSetupFaculty">
+            <EntityTypeMapping TypeName="AttendanceModel.tblSetupFaculty">
+              <MappingFragment StoreEntitySet="tblSetupFaculty">
+                <ScalarProperty Name="facid" ColumnName="facid" />
+                <ScalarProperty Name="Instid" ColumnName="Instid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSetupInstitution">
+            <EntityTypeMapping TypeName="AttendanceModel.tblSetupInstitution">
+              <MappingFragment StoreEntitySet="tblSetupInstitution">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="postalcode" ColumnName="postalcode" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblsetupRole">
+            <EntityTypeMapping TypeName="AttendanceModel.tblsetupRole">
+              <MappingFragment StoreEntitySet="tblsetupRole">
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSetupSemester">
+            <EntityTypeMapping TypeName="AttendanceModel.tblSetupSemester">
+              <MappingFragment StoreEntitySet="tblSetupSemester">
+                <ScalarProperty Name="semid" ColumnName="semid" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSetupSession">
+            <EntityTypeMapping TypeName="AttendanceModel.tblSetupSession">
+              <MappingFragment StoreEntitySet="tblSetupSession">
+                <ScalarProperty Name="sessid" ColumnName="sessid" />
+                <ScalarProperty Name="session" ColumnName="session" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSetupVenue">
+            <EntityTypeMapping TypeName="AttendanceModel.tblSetupVenue">
+              <MappingFragment StoreEntitySet="tblSetupVenue">
+                <ScalarProperty Name="venid" ColumnName="venid" />
+                <ScalarProperty Name="deptid" ColumnName="deptid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GenericAudit" FunctionName="AttendanceModel.Store.GenericAudit" />
+          <EntitySetMapping Name="tblsetupCourse">
+            <EntityTypeMapping TypeName="AttendanceModel.tblsetupCourse">
+              <MappingFragment StoreEntitySet="tblsetupCourse">
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+                <ScalarProperty Name="venid" ColumnName="venid" />
+                <ScalarProperty Name="semid" ColumnName="semid" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="deptid" ColumnName="deptid" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStatus">
+            <EntityTypeMapping TypeName="AttendanceModel.tblStatus">
+              <MappingFragment StoreEntitySet="tblStatus">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUser">
+            <EntityTypeMapping TypeName="AttendanceModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="Statusid" ColumnName="Statusid" />
+                <ScalarProperty Name="Deptid" ColumnName="Deptid" />
+                <ScalarProperty Name="Dept" ColumnName="Dept" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SchID" ColumnName="SchID" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewCourseAllocation">
+            <EntityTypeMapping TypeName="AttendanceModel.tblNewCourseAllocation">
+              <MappingFragment StoreEntitySet="tblNewCourseAllocation">
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+                <ScalarProperty Name="Venueid" ColumnName="Venueid" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Deptid" ColumnName="Deptid" />
+                <ScalarProperty Name="Dept" ColumnName="Dept" />
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="sessionid" ColumnName="sessionid" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="Semid" ColumnName="Semid" />
+                <ScalarProperty Name="Allocid" ColumnName="Allocid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCourseRegistration">
+            <EntityTypeMapping TypeName="AttendanceModel.tblCourseRegistration">
+              <MappingFragment StoreEntitySet="tblCourseRegistration">
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="Venueid" ColumnName="Venueid" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Deptid" ColumnName="Deptid" />
+                <ScalarProperty Name="Dept" ColumnName="Dept" />
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="sessionid" ColumnName="sessionid" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="Semid" ColumnName="Semid" />
+                <ScalarProperty Name="Allocid" ColumnName="Allocid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCaptureAttendance">
+            <EntityTypeMapping TypeName="AttendanceModel.tblCaptureAttendance">
+              <MappingFragment StoreEntitySet="tblCaptureAttendance">
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Attend" ColumnName="Attend" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="session" ColumnName="session" />
+                <ScalarProperty Name="sessid" ColumnName="sessid" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="semid" ColumnName="semid" />
+                <ScalarProperty Name="attendanceid" ColumnName="attendanceid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

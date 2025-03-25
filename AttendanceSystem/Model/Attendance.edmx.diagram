@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f0616123fff94b8a8a6167cc0b6c9d35" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="AttendanceModel.AuditLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblAuditTray" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblConfig" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblCourseAllocation" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblSetupDept" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblSetupFaculty" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblSetupInstitution" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblsetupRole" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblSetupSemester" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblSetupSession" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblSetupVenue" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceModel.tblsetupCourse" Width="1.5" PointX="9.375" PointY="6.75" />
+        <EntityTypeShape EntityType="AttendanceModel.tblStatus" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="AttendanceModel.tblUser" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="AttendanceModel.tblNewCourseAllocation" Width="2.25" PointX="12.375" PointY="7.5" />
+        <EntityTypeShape EntityType="AttendanceModel.tblCourseRegistration" Width="2.625" PointX="7.375" PointY="10.75" />
+        <EntityTypeShape EntityType="AttendanceModel.tblCaptureAttendance" Width="2.375" PointX="11.5" PointY="11.125" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
