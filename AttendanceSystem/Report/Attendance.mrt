@@ -9,7 +9,7 @@
         <Name>Attendance</Name>
       </Attendance>
     </Databases>
-    <DataSources isList="true" count="5">
+    <DataSources isList="true" count="9">
       <tblSetupInstitution Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
         <Alias>tblSetupInstitution</Alias>
         <Columns isList="true" count="2">
@@ -100,6 +100,93 @@
         <SqlCommand>select distinct StudentID, StudentName, Attend  from [tblCaptureAttendance]
 	where  semester = @Semester and session = @Session and CourseCode = @Code and Date = @date</SqlCommand>
       </tblAttend>
+      <tblTotalStudent Ref="8" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>tblTotalStudent</Alias>
+        <Columns isList="true" count="1">
+          <value>TotalAttendanceCount,System.Int32</value>
+        </Columns>
+        <CommandTimeout>1200</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>f77be04caf2c4c4583560c9fee3359f2</Key>
+        <Name>tblTotalStudent</Name>
+        <NameInSource>Attendance</NameInSource>
+        <Parameters isList="true" count="4">
+          <value>_x0040_Semester,,22,50</value>
+          <value>_x0040_Session,,22,50</value>
+          <value>_x0040_Code,,22,50</value>
+          <value>_x0040_date,,31,50</value>
+        </Parameters>
+        <SqlCommand>SELECT COUNT(StudentID) AS TotalAttendanceCount 
+	FROM [Attendance].[dbo].[tblCaptureAttendance]
+	where  semester = @Semester and session = @Session and CourseCode = @Code and Date = @date</SqlCommand>
+      </tblTotalStudent>
+      <tblPresent Ref="9" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>tblPresent</Alias>
+        <Columns isList="true" count="1">
+          <value>TotalPresent,System.Int32</value>
+        </Columns>
+        <CommandTimeout>1200</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>684cecebaa314fd7a446ea310a63c0f8</Key>
+        <Name>tblPresent</Name>
+        <NameInSource>Attendance</NameInSource>
+        <Parameters isList="true" count="4">
+          <value>_x0040_Semester,,22,50</value>
+          <value>_x0040_Session,,22,50</value>
+          <value>_x0040_Code,,22,50</value>
+          <value>_x0040_date,,31,50</value>
+        </Parameters>
+        <SqlCommand>SELECT COUNT(StudentID) AS TotalPresent
+	FROM [Attendance].[dbo].[tblCaptureAttendance]
+	where  semester = @Semester and session = @Session and CourseCode = @Code and Date = @date
+	and Attend = 1</SqlCommand>
+      </tblPresent>
+      <tblAbsence Ref="10" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>tblAbsence</Alias>
+        <Columns isList="true" count="1">
+          <value>TotalAbsence,System.Int32</value>
+        </Columns>
+        <CommandTimeout>1200</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>ff666ea85af047a1a756f160f8111222</Key>
+        <Name>tblAbsence</Name>
+        <NameInSource>Attendance</NameInSource>
+        <Parameters isList="true" count="4">
+          <value>_x0040_Semester,,22,50</value>
+          <value>_x0040_Session,,22,50</value>
+          <value>_x0040_Code,,22,50</value>
+          <value>_x0040_date,,31,50</value>
+        </Parameters>
+        <SqlCommand>SELECT COUNT(StudentID) AS TotalAbsence
+	FROM [Attendance].[dbo].[tblCaptureAttendance]
+	where  semester = @Semester and session = @Session and CourseCode = @Code and Date = @date
+	and Attend = 0</SqlCommand>
+      </tblAbsence>
+      <tblStaff Ref="11" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>tblStaff</Alias>
+        <Columns isList="true" count="2">
+          <value>Semester,System.String</value>
+          <value>Staff,System.String</value>
+        </Columns>
+        <CommandTimeout>1200</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>c7d18aebfee84560b80d537325c3f821</Key>
+        <Name>tblStaff</Name>
+        <NameInSource>Attendance</NameInSource>
+        <Parameters isList="true" count="4">
+          <value>_x0040_Semester,,22,50</value>
+          <value>_x0040_Session,,22,50</value>
+          <value>_x0040_Code,,22,50</value>
+          <value>_x0040_date,,31,50</value>
+        </Parameters>
+        <SqlCommand>Select distinct A.Semester, B.StaffName as Staff from [tblCaptureAttendance] A
+	Inner Join [tblNewCourseAllocation] B
+	ON A.CourseCode = B.code
+	AND A.semester = B.semester
+	AND A.session = B.Session
+
+	where  A.semester = @Semester and A.session = @Session and A.CourseCode = @Code and A.Date = @date</SqlCommand>
+      </tblStaff>
     </DataSources>
     <Relations isList="true" count="0" />
     <Report isRef="0" />
@@ -111,16 +198,16 @@
   <Key>162b075ee39f4611acb9a277e3992420</Key>
   <MetaTags isList="true" count="0" />
   <Pages isList="true" count="1">
-    <Page1 Ref="8" type="Page" isKey="true">
+    <Page1 Ref="12" type="Page" isKey="true">
       <Border>All;Black;2;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
-      <Components isList="true" count="6">
-        <PageHeaderBand1 Ref="9" type="PageHeaderBand" isKey="true">
+      <Components isList="true" count="7">
+        <PageHeaderBand1 Ref="13" type="PageHeaderBand" isKey="true">
           <Border>All;Black;1;Solid;False;4;Black</Border>
           <Brush>Transparent</Brush>
           <ClientRectangle>0,0.2,7.72,1.3</ClientRectangle>
           <Components isList="true" count="4">
-            <Text1 Ref="10" type="Text" isKey="true">
+            <Text1 Ref="14" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0.1,7.7,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -128,13 +215,13 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text1</Name>
-              <Page isRef="8" />
-              <Parent isRef="9" />
+              <Page isRef="12" />
+              <Parent isRef="13" />
               <Text>{tblSetupInstitution.name}</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
             </Text1>
-            <Text2 Ref="11" type="Text" isKey="true">
+            <Text2 Ref="15" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0.4,7.7,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -142,13 +229,13 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text2</Name>
-              <Page isRef="8" />
-              <Parent isRef="9" />
+              <Page isRef="12" />
+              <Parent isRef="13" />
               <Text>{tblSetupInstitution.address}</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
             </Text2>
-            <Text3 Ref="12" type="Text" isKey="true">
+            <Text3 Ref="16" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0.7,7.7,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -156,14 +243,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text3</Name>
-              <Page isRef="8" />
-              <Parent isRef="9" />
+              <Page isRef="12" />
+              <Parent isRef="13" />
               <Text>{tblsetupcourse.code} - {tblsetupcourse.title}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text3>
-            <Text4 Ref="13" type="Text" isKey="true">
+            <Text4 Ref="17" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0,1,7.7,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -171,9 +258,9 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text4</Name>
-              <Page isRef="8" />
-              <Parent isRef="9" />
-              <Text>Semester: {tblCourseAlloc.semester} Session: {tblCourseAlloc.Session} </Text>
+              <Page isRef="12" />
+              <Parent isRef="13" />
+              <Text>Semester: {tblCourseAlloc.semester}     Session: {tblCourseAlloc.Session} </Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Bottom</VertAlignment>
@@ -181,57 +268,145 @@
           </Components>
           <Conditions isList="true" count="0" />
           <Name>PageHeaderBand1</Name>
-          <Page isRef="8" />
-          <Parent isRef="8" />
+          <Page isRef="12" />
+          <Parent isRef="12" />
         </PageHeaderBand1>
-        <PageFooterBand1 Ref="14" type="PageFooterBand" isKey="true">
+        <PageFooterBand1 Ref="18" type="PageFooterBand" isKey="true">
           <Border>All;Black;1;Solid;False;4;Black</Border>
           <Brush>Transparent</Brush>
-          <ClientRectangle>0,9.62,7.72,0.6</ClientRectangle>
-          <Components isList="true" count="2">
-            <Text31 Ref="15" type="Text" isKey="true">
+          <ClientRectangle>0,8.92,7.72,1.3</ClientRectangle>
+          <Components isList="true" count="7">
+            <Text31 Ref="19" type="Text" isKey="true">
+              <Border>Top;Black;1;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>0.1,0.38,2.4,0.2</ClientRectangle>
+              <ClientRectangle>0,1.08,2.4,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Arial,8</Font>
               <Guid>ee549e7dbfce4807b30e89c4ed25b524</Guid>
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text31</Name>
-              <Page isRef="8" />
-              <Parent isRef="14" />
+              <Page isRef="12" />
+              <Parent isRef="18" />
               <Text>{PageNumberThrough}</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Bottom</VertAlignment>
             </Text31>
-            <Text32 Ref="16" type="Text" isKey="true">
+            <Text32 Ref="20" type="Text" isKey="true">
               <Border>Top;Black;1;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>5.2,0.38,2.4,0.2</ClientRectangle>
+              <ClientRectangle>5.3,1.08,2.4,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Arial,8</Font>
               <Guid>d196103852f14ab487365e6e5ca92e82</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text32</Name>
-              <Page isRef="8" />
-              <Parent isRef="14" />
+              <Page isRef="12" />
+              <Parent isRef="18" />
               <Text>{Time}</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Bottom</VertAlignment>
             </Text32>
+            <Text10 Ref="21" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.1,0.08,3.6,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Width</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text>Total Number of Student Registered for the Course: {tblTotalStudent.TotalAttendanceCount}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text11 Ref="22" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>4,0.08,3.6,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Width</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text>Total Number of Students Present in Class: {tblPresent.TotalPresent}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text12 Ref="23" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>4,0.48,3.6,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Width</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text> Total Number of Students Absence in Class:{tblAbsence.TotalAbsence}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text13 Ref="24" type="Text" isKey="true">
+              <Border>Top;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>2.4,1.08,2.9,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Bottom</VertAlignment>
+            </Text13>
+            <Text14 Ref="25" type="Text" isKey="true">
+              <Border>None;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0.1,0.48,3.6,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="12" />
+              <Parent isRef="18" />
+              <Text>Instructor Name: {tblStaff.Staff}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Bottom</VertAlignment>
+            </Text14>
           </Components>
           <Conditions isList="true" count="0" />
           <Name>PageFooterBand1</Name>
-          <Page isRef="8" />
-          <Parent isRef="8" />
+          <Page isRef="12" />
+          <Parent isRef="12" />
         </PageFooterBand1>
-        <DatatblgetDate Ref="17" type="DataBand" isKey="true">
+        <DataBand1 Ref="26" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,1.9,7.72,0.2</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <Filters isList="true" count="0" />
+          <Name>DataBand1</Name>
+          <Page isRef="12" />
+          <Parent isRef="12" />
+          <Sort isList="true" count="0" />
+        </DataBand1>
+        <DatatblgetDate Ref="27" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
-          <ClientRectangle>0,1.9,7.72,0.3</ClientRectangle>
+          <ClientRectangle>0,2.5,7.72,0.3</ClientRectangle>
           <Components isList="true" count="1">
-            <Text5 Ref="18" type="Text" isKey="true">
+            <Text5 Ref="28" type="Text" isKey="true">
               <Border>Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0.1,7.7,0.2</ClientRectangle>
@@ -240,8 +415,8 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text5</Name>
-              <Page isRef="8" />
-              <Parent isRef="17" />
+              <Page isRef="12" />
+              <Parent isRef="27" />
               <Text>Attendance for {tblgetDate.date}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -252,31 +427,30 @@
           <DataSourceName>tblgetDate</DataSourceName>
           <Filters isList="true" count="0" />
           <Name>DatatblgetDate</Name>
-          <Page isRef="8" />
-          <Parent isRef="8" />
+          <Page isRef="12" />
+          <Parent isRef="12" />
           <Sort isList="true" count="0" />
         </DatatblgetDate>
-        <ColumnHeaderBand1 Ref="19" type="Stimulsoft.Report.Components.StiColumnHeaderBand" isKey="true">
+        <ColumnHeaderBand1 Ref="29" type="Stimulsoft.Report.Components.StiColumnHeaderBand" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>0,2.6,7.72,0.3</ClientRectangle>
+          <ClientRectangle>0,3.2,7.72,0.3</ClientRectangle>
           <Components isList="true" count="4">
-            <Text6 Ref="20" type="Text" isKey="true">
+            <Text6 Ref="30" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0,0.6,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text6</Name>
-              <Page isRef="8" />
-              <Parent isRef="19" />
+              <Page isRef="12" />
+              <Parent isRef="29" />
               <Text>S/N</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text6>
-            <Text7 Ref="21" type="Text" isKey="true">
+            <Text7 Ref="31" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.6,0,1.7,0.3</ClientRectangle>
@@ -286,14 +460,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text7</Name>
-              <Page isRef="8" />
-              <Parent isRef="19" />
+              <Page isRef="12" />
+              <Parent isRef="29" />
               <Text>STUDENTID</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text7>
-            <Text8 Ref="22" type="Text" isKey="true">
+            <Text8 Ref="32" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>2.3,0,3.9,0.3</ClientRectangle>
@@ -303,14 +477,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text8</Name>
-              <Page isRef="8" />
-              <Parent isRef="19" />
+              <Page isRef="12" />
+              <Parent isRef="29" />
               <Text>NAME</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text8>
-            <Text9 Ref="23" type="Text" isKey="true">
+            <Text9 Ref="33" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>6.2,0,1.5,0.3</ClientRectangle>
@@ -320,8 +494,8 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text9</Name>
-              <Page isRef="8" />
-              <Parent isRef="19" />
+              <Page isRef="12" />
+              <Parent isRef="29" />
               <Text>ATTEND</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -330,15 +504,15 @@
           </Components>
           <Conditions isList="true" count="0" />
           <Name>ColumnHeaderBand1</Name>
-          <Page isRef="8" />
-          <Parent isRef="8" />
+          <Page isRef="12" />
+          <Parent isRef="12" />
         </ColumnHeaderBand1>
-        <DatatblAttend Ref="24" type="DataBand" isKey="true">
+        <DatatblAttend Ref="34" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
-          <ClientRectangle>0,3.3,7.72,0.3</ClientRectangle>
+          <ClientRectangle>0,3.9,7.72,0.3</ClientRectangle>
           <Components isList="true" count="4">
-            <DatatblAttend_StudentID Ref="25" type="Text" isKey="true">
+            <DatatblAttend_StudentID Ref="35" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -348,14 +522,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>DatatblAttend_StudentID</Name>
-              <Page isRef="8" />
-              <Parent isRef="24" />
+              <Page isRef="12" />
+              <Parent isRef="34" />
               <Text>{tblAttend.StudentID}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </DatatblAttend_StudentID>
-            <DatatblAttend_StudentName Ref="26" type="Text" isKey="true">
+            <DatatblAttend_StudentName Ref="36" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -365,14 +539,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>DatatblAttend_StudentName</Name>
-              <Page isRef="8" />
-              <Parent isRef="24" />
+              <Page isRef="12" />
+              <Parent isRef="34" />
               <Text>{tblAttend.StudentName}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </DatatblAttend_StudentName>
-            <DatatblAttend_Attend Ref="27" type="CheckBox" isKey="true">
+            <DatatblAttend_Attend Ref="37" type="CheckBox" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <Checked>{tblAttend.Attend}</Checked>
@@ -380,11 +554,11 @@
               <Conditions isList="true" count="0" />
               <ContourColor>Black</ContourColor>
               <Name>DatatblAttend_Attend</Name>
-              <Page isRef="8" />
-              <Parent isRef="24" />
+              <Page isRef="12" />
+              <Parent isRef="34" />
               <TextBrush>Black</TextBrush>
             </DatatblAttend_Attend>
-            <Text45 Ref="28" type="Text" isKey="true">
+            <Text45 Ref="38" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>White</Brush>
               <ClientRectangle>0,0,0.6,0.3</ClientRectangle>
@@ -393,8 +567,8 @@
               <Guid>1e8736ef9a1f4e66a32803e77487e6aa</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text45</Name>
-              <Page isRef="8" />
-              <Parent isRef="24" />
+              <Page isRef="12" />
+              <Parent isRef="34" />
               <Text> {Line}</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
@@ -404,18 +578,18 @@
           <DataSourceName>tblAttend</DataSourceName>
           <Filters isList="true" count="0" />
           <Name>DatatblAttend</Name>
-          <Page isRef="8" />
-          <Parent isRef="8" />
+          <Page isRef="12" />
+          <Parent isRef="12" />
           <Sort isList="true" count="0" />
         </DatatblAttend>
-        <ColumnFooterBand1 Ref="29" type="Stimulsoft.Report.Components.StiColumnFooterBand" isKey="true">
+        <ColumnFooterBand1 Ref="39" type="Stimulsoft.Report.Components.StiColumnFooterBand" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>0,4,7.72,0</ClientRectangle>
+          <ClientRectangle>0,4.6,7.72,0</ClientRectangle>
           <Components isList="true" count="0" />
           <Conditions isList="true" count="0" />
           <Name>ColumnFooterBand1</Name>
-          <Page isRef="8" />
-          <Parent isRef="8" />
+          <Page isRef="12" />
+          <Parent isRef="12" />
         </ColumnFooterBand1>
       </Components>
       <Conditions isList="true" count="0" />
@@ -439,9 +613,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>3/25/2025 5:03:06 PM</ReportChanged>
+  <ReportChanged>3/26/2025 8:15:32 PM</ReportChanged>
   <ReportCreated>3/25/2025 4:07:58 PM</ReportCreated>
-  <ReportGuid>26fa4893f64041de9137eaacb3e549ae</ReportGuid>
+  <ReportFile>C:\Users\USER\Documents\Project\Attendance Project\AttendanceSystem\AttendanceSystem\Report\Attendance.mrt</ReportFile>
+  <ReportGuid>2eb5249dc88c421191a0cd4b84ac1b88</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2019.3.1.0</ReportVersion>

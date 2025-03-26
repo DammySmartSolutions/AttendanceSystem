@@ -63,7 +63,7 @@
 
                                                  <div class="form-group">
                                                 <label for="txtid" class="col-form-label">Staff/Student ID</label>
-                                                <input id="txtid" type="text" class="form-control form-control-sm" runat="server"  placeholder="202381568">
+                                                <input id="txtid" type="text" class="form-control form-control-sm" runat="server" >
                                             </div>
 
                                              </div>
@@ -73,7 +73,7 @@
                                                  <div class="form-group">
                                                 
                                                       <label for="txtname" class="col-form-label">Name</label>
-                                                     <input id="txtname" type="text" class="form-control form-control-sm" runat="server" placeholder="Surname Firstname" >
+                                                     <input id="txtname" type="text" class="form-control form-control-sm" runat="server"  >
                                                      
 
                                             </div>
@@ -96,7 +96,7 @@
                                           
 
                                                        <label for="txtemail" class="col-form-label">Email Address</label>
-                                                      <input id="txtemail" type="email" class="form-control form-control-sm" runat="server" placeholder="oseedru@mun.ca" >
+                                                      <input id="txtemail" type="email" class="form-control form-control-sm" runat="server"  >
                                                 
                                                 
                                                
@@ -129,9 +129,16 @@
                                                  <div class="form-group">
    
 
-                                                            <label for="txtconfirmpass" class="col-form-label">Confirm Password</label>
-                                                           <input id="txtconfirmpass" type="password" class="form-control form-control-sm" runat="server" placeholder="Same as New password" >
-                                                                 
+
+                                                           <label for="ddlDept" class="col-form-label">Department</label>
+                                          <asp:DropDownList ID="ddlDept" AppendDataBoundItems="true" runat="server" DataSourceID="SqlDataSource1" DataTextField="name" DataValueField="deptid" CssClass="form-control form-control-sm" >    
+                                          <asp:ListItem Text="--Select Department--" Value="0" />   
+                                         </asp:DropDownList>
+                                                 <asp:SqlDataSource ID="SqlDataSource1" runat="server"
+                                        ConnectionString="<%$ ConnectionStrings:SqlConnection %>"
+                                        SelectCommand="select * from tblSetupDept">
+                                         </asp:SqlDataSource>
+
 
 
 
@@ -144,14 +151,10 @@
 
                                                  <div class="form-group">
        
-                                                      <label for="ddlDept" class="col-form-label">Department</label>
-                                                  <asp:DropDownList ID="ddlDept" AppendDataBoundItems="true" runat="server" DataSourceID="SqlDataSource1" DataTextField="name" DataValueField="deptid" CssClass="form-control form-control-sm" >    
-                                                  <asp:ListItem Text="--Select Department--" Value="0" />   
-                                                 </asp:DropDownList>
-                                                         <asp:SqlDataSource ID="SqlDataSource1" runat="server"
-                                                ConnectionString="<%$ ConnectionStrings:SqlConnection %>"
-                                                SelectCommand="select * from tblSetupDept">
-                                                 </asp:SqlDataSource>
+                                                    
+                                                            <label for="txtconfirmpass" class="col-form-label">Confirm Password</label>
+                                                           <input id="txtconfirmpass" type="password" class="form-control form-control-sm" runat="server" placeholder="Same as New password" >
+                                                                 
 
 
                                             </div>

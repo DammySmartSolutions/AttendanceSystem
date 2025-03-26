@@ -471,7 +471,7 @@ namespace AttendanceSystem
 
                 string session = ddlsession.SelectedItem.Text;
 
-                bool status = true;
+                
 
                 // StaffNumber
 
@@ -484,6 +484,8 @@ namespace AttendanceSystem
                         string Studentid = row.Cells[1].Text;
                         string studentname = row.Cells[2].Text;
                         string CourseCode = row.Cells[3].Text;
+
+                        bool status = true;
 
                         // Check if already marked
 
@@ -538,6 +540,76 @@ namespace AttendanceSystem
 
 
                     }
+
+
+
+                    else if (chk != null && !chk.Checked)
+                    {
+                        string Studentid = row.Cells[1].Text;
+                        string studentname = row.Cells[2].Text;
+                        string CourseCode = row.Cells[3].Text;
+
+                        // Check if already marked
+                        bool status = false;
+
+
+                        var CreateInst = Db.tblCaptureAttendance.Where(x => x.StudentID == Studentid && x.CourseCode == CourseCode && x.Date == today).FirstOrDefault();
+
+
+
+
+
+                        if (CreateInst == null)
+                        {
+
+
+
+
+                            var NewClassDeg = new tblCaptureAttendance
+                            {
+
+
+                                semid = semid,
+
+                                semester = semester,
+
+
+
+
+                                sessid = sessid,
+
+                                session = session,
+
+                                StudentID = Studentid,
+                                StudentName = studentname,
+
+                                Attend = status,
+
+                                Date = today,
+
+                                StaffID = StaffNumber,
+                                CourseCode = CourseCode,
+
+                            };
+
+
+                            Db.tblCaptureAttendance.Add(NewClassDeg);
+
+                        }
+
+
+
+
+
+                    }
+
+
+
+
+
+
+                    else { }
+
 
                 }
 
