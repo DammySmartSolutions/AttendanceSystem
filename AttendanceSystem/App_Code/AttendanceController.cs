@@ -484,6 +484,125 @@ namespace AttendanceSystem.App_Code
 
 
 
+        [HttpGet, HttpPost]
+        [ActionName("LoadTotalSysUser")]
+        public string LoadTotalSysUser()
+        {
+
+            
+
+            var query = Db.tblUser.Where(x=> x.Statusid != 2)
+                .Select(x => new CountTotalStudent
+                {
+
+                    totalnumber = x.SchID,
+
+
+                }).Count();
+            string total = Convert.ToString(query);
+
+            return total;
+
+        }
+
+
+
+        [HttpGet, HttpPost]
+        [ActionName("LoadTotalStudent")]
+        public string LoadTotalStudent()
+        {
+
+
+
+            var query = Db.tblUser.Where(x => x.Statusid == 2)
+                .Select(x => new CountTotalStudent
+                {
+
+                    totalnumber = x.SchID,
+
+
+                }).Count();
+            string total = Convert.ToString(query);
+
+            return total;
+
+        }
+
+
+
+        [HttpGet, HttpPost]
+        [ActionName("LoadTotalCourses")]
+        public string LoadTotalCourses()
+        {
+
+
+
+            var query = Db.tblsetupCourse
+                .Select(x => new CountTotalStudent
+                {
+
+                    totalnumber = x.code,
+
+
+                }).Count();
+            string total = Convert.ToString(query);
+
+            return total;
+
+        }
+
+
+
+        [HttpGet, HttpPost]
+        [ActionName("LoadTotalDept")]
+        public string LoadTotalDept()
+        {
+
+
+
+            var query = Db.tblSetupDept
+                .Select(x => new CountTotalStudent
+                {
+
+                    totalcount = x.deptid,
+
+
+                }).Count();
+            string total = Convert.ToString(query);
+
+            return total;
+
+        }
+
+
+        [HttpGet, HttpPost]
+        [ActionName("LoadStudentByCourses")]
+
+        public IEnumerable<CountTotalStudent> LoadStudentByCourses()
+        {
+
+
+    
+
+
+
+            var query = Db.tblCourseRegistration.GroupBy(x => x.code)
+                               .Select(x => new CountTotalStudent
+                               {
+
+                                   StudentID = x.Count(),
+                                   CourseCode = x.Key,
+
+                               }).Distinct().ToArray();
+
+
+            return query;
+
+        }
+
+
+
+
 
 
 

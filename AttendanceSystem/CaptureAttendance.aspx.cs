@@ -536,6 +536,29 @@ namespace AttendanceSystem
                         }
 
 
+                        else
+                        {
+                                                     
+
+
+                            CreateInst.semid = semid;
+                            CreateInst.semester = semester;
+                            CreateInst.sessid = sessid;
+
+                            CreateInst.session = session;
+
+                            CreateInst.StudentID = Studentid;
+                            CreateInst.StudentName = studentname;
+
+                            CreateInst.Attend = status;
+                            CreateInst.StaffID = StaffNumber;
+                            CreateInst.CourseCode = CourseCode;
+
+                            Db.Entry(CreateInst).State = EntityState.Modified;
+
+                        }
+
+
 
 
 
@@ -597,6 +620,29 @@ namespace AttendanceSystem
 
                         }
 
+
+
+                        else
+                        {
+
+
+
+                            CreateInst.semid = semid;
+                            CreateInst.semester = semester;
+                            CreateInst.sessid = sessid;
+
+                            CreateInst.session = session;
+
+                            CreateInst.StudentID = Studentid;
+                            CreateInst.StudentName = studentname;
+
+                            CreateInst.Attend = status;
+                            CreateInst.StaffID = StaffNumber;
+                            CreateInst.CourseCode = CourseCode;
+
+                            Db.Entry(CreateInst).State = EntityState.Modified;
+
+                        }
 
 
 

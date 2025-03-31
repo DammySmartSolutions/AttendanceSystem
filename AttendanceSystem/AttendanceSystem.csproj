@@ -801,6 +801,7 @@
     <Compile Include="Model\AuditLog.cs">
       <DependentUpon>Attendance.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\CountTotalStudent.cs" />
     <Compile Include="Model\tblAuditTray.cs">
       <DependentUpon>Attendance.tt</DependentUpon>
     </Compile>
